@@ -1,36 +1,32 @@
-#include <bits/stdc++.h>
-/*1. Làm lại bài số phức với một phương thức thiết lập duy nhất cho phép quan điểm một
-số thực như một số phức đặc biệt (phần ảo bằng 0). Định nghĩa các phép toán +, -,
-*, /, ==, != trên số phức. Định nghĩa phép toán << và >> để xuất và nhập dữ liệu cho
-số phức.*/
+/*2. Làm lại bài phân số với các phương thức thiết lập cho phép sử dụng một số nguyên
+như một phân số đặc biệt (mẫu số bằng 1). Định nghĩa các phép toán +, -, *, /, ==,
+>, < trên phân số. Định nghĩa phép toán << và >> để xuất và nhập dữ liệu cho phân
+số.*/
+#include <iostream>
 using namespace std;
+
 class cSoPhuc
 {
 private:
-    int thuc, ao;
+    double thuc, ao;
 
 public:
-    cSoPhuc() {};
-    cSoPhuc(int thuc, int ao)
+    cSoPhuc(double thuc = 0, double ao = 0)
     {
         this->thuc = thuc;
         this->ao = ao;
-    };
-    cSoPhuc operator+(const cSoPhuc &other) {}
-    cSoPhuc operator-(const cSoPhuc &other) {}
-    cSoPhuc operator*(const cSoPhuc &other) {}
-    cSoPhuc operator/(const cSoPhuc &other) {}
-    bool operator==(const cSoPhuc &other) {}
-    bool operator!=(const cSoPhuc &other) {}
-    friend ostream &operator<<(ostream &os, cSoPhuc other) {}
-    friend istream &operator>>(istream &is, cSoPhuc &other) {}
+    }
+    cSoPhuc operator+(const cSoPhuc &other);
+    cSoPhuc operator-(const cSoPhuc &other);
+    cSoPhuc operator*(const cSoPhuc &other);
+    cSoPhuc operator/(const cSoPhuc &other);
+    bool operator==(const cSoPhuc &other);
+    bool operator!=(const cSoPhuc &other);
+    friend ostream &operator<<(ostream &os, cSoPhuc other);
+    friend istream &operator>>(istream &is, cSoPhuc &other);
 };
-cSoPhuc::cSoPhuc() {};
-cSoPhuc::cSoPhuc(int thuc, int ao)
-{
-    this->thuc = thuc;
-    this->ao = ao;
-};
+
+// Định nghĩa chi tiết bên ngoài
 cSoPhuc cSoPhuc::operator+(const cSoPhuc &other)
 {
     cSoPhuc res;
@@ -38,6 +34,7 @@ cSoPhuc cSoPhuc::operator+(const cSoPhuc &other)
     res.ao = ao + other.ao;
     return res;
 }
+
 cSoPhuc cSoPhuc::operator-(const cSoPhuc &other)
 {
     cSoPhuc res;
@@ -45,6 +42,7 @@ cSoPhuc cSoPhuc::operator-(const cSoPhuc &other)
     res.ao = ao - other.ao;
     return res;
 }
+
 cSoPhuc cSoPhuc::operator*(const cSoPhuc &other)
 {
     cSoPhuc res;
@@ -52,32 +50,40 @@ cSoPhuc cSoPhuc::operator*(const cSoPhuc &other)
     res.ao = thuc * other.ao + ao * other.thuc;
     return res;
 }
+
 cSoPhuc cSoPhuc::operator/(const cSoPhuc &other)
 {
     cSoPhuc res;
-    res.thuc = (thuc * other.thuc + ao * other.ao) / (other.ao * other.ao + other.thuc * other.thuc);
-    res.ao = (ao * other.thuc - thuc * other.ao) / (other.ao * other.ao + other.thuc * other.thuc);
+    double mau_chung = other.ao * other.ao + other.thuc * other.thuc;
+    res.thuc = (thuc * other.thuc + ao * other.ao) / mau_chung;
+    res.ao = (ao * other.thuc - thuc * other.ao) / mau_chung;
     return res;
 }
+
 bool cSoPhuc::operator==(const cSoPhuc &other)
 {
     return ao == other.ao && thuc == other.thuc;
 }
+
 bool cSoPhuc::operator!=(const cSoPhuc &other)
 {
     return (ao != other.ao) || (thuc != other.thuc);
 }
+
 ostream &operator<<(ostream &os, cSoPhuc other)
 {
-    os << "So phuc: " << other.thuc;
+    os << other.thuc;
     if (other.ao < 0)
     {
-        cout << " - " << -other.ao << "i";
+        os << " - " << -other.ao << "i";
     }
-    else
-        cout << " + " << other.ao << "i";
+    else if (other.ao > 0)
+    {
+        os << " + " << other.ao << "i";
+    }
     return os;
 }
+
 istream &operator>>(istream &is, cSoPhuc &other)
 {
     cout << "Nhap phan thuc: ";
@@ -86,29 +92,34 @@ istream &operator>>(istream &is, cSoPhuc &other)
     is >> other.ao;
     return is;
 }
+
 int main()
 {
     cSoPhuc a, b;
     cin >> a >> b;
-    cout << "Ket qua cong 2 so phuc " << a << " " << b << endl;
+    
+    cout << "Hai so phuc vua nhap la: (" << a << ") va (" << b << ")\n";
+    
     cSoPhuc x = a + b;
-    cout << x << endl;
-    cout << "Ket qua tru 2 so phuc " << a << " " << b << endl;
+    cout << "Ket qua cong: " << x << endl;
+    
     cSoPhuc y = a - b;
-    cout << y << endl;
-    cout << "Ket qua nhan 2 so phuc " << a << " " << b << endl;
+    cout << "Ket qua tru: " << y << endl;
+    
     cSoPhuc z = a * b;
-    cout << z << endl;
-    cout << "Ket qua chi 2 so phuc " << a << " " << b << endl;
+    cout << "Ket qua nhan: " << z << endl;
+    
     cSoPhuc t = a / b;
-    cout << t << endl;
+    cout << "Ket qua chia: " << t << endl;
+    
     if (a == b)
     {
-        cout << "Hai so phuc " << a << " va " << b << " bang nhau\n";
+        cout << "Hai so phuc bang nhau\n";
     }
-    if (a != b)
+    else
     {
-        cout << "Hai so phuc " << a << " va " << b << " khong bang nhau\n";
+        cout << "Hai so phuc khong bang nhau\n";
     }
+    
     return 0;
 }
