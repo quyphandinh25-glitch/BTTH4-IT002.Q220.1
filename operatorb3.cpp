@@ -30,11 +30,14 @@ istream &operator>>(istream &is, cTime &other)
 };
 ostream &operator<<(ostream &os, cTime other)
 {
-    if (other.gio < 10) os << "0";
+    if (other.gio < 10)
+        os << "0";
     os << other.gio << ":";
-    if (other.phut < 10) os << "0";
+    if (other.phut < 10)
+        os << "0";
     os << other.phut << ":";
-    if (other.giay < 10) os << "0";
+    if (other.giay < 10)
+        os << "0";
     os << other.giay;
     return os;
 };
@@ -50,28 +53,32 @@ cTime cTime::operator-(int s)
 }
 cTime cTime::operator++()
 {
-    *this = *this + 1;
-    return *this;
+    cTime res = *this;
+    res = *this + 1;
+    return res;
 }
 
 cTime cTime::operator--()
 {
-    *this = *this - 1;
-    return *this;
+    cTime res = *this;
+    res = *this + (-1);
+    return res;
 }
 int main()
 {
     cTime time;
     cin >> time;
     int addTime;
-    cout<<"Nhap so giay muon them: "; cin>>addTime;
+    cout << "Nhap so giay muon them: ";
+    cin >> addTime;
     cTime a = time + addTime;
-    cout << a <<endl;
+    cout << a << endl;
     int subTime;
-    cout<<"Nhap so giay muon tru: "; cin>>subTime;
+    cout << "Nhap so giay muon tru: ";
+    cin >> subTime;
     cTime b = time - subTime;
-    cout << b;
-    cout<<"Thoi gian sau khi tru di bot 1s: "<<--time<<endl;
-    cout<<"Thoi gian sau khi cong 1s: "<<++time<<endl;
+    cout << b << endl;
+    cout << "Thoi gian sau khi tru di bot 1s: " << --time << endl;
+    cout << "Thoi gian sau khi cong 1s: " << ++time << endl;
     return 0;
 }
