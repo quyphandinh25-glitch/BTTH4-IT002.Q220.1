@@ -72,6 +72,6 @@ int main()
     cTime b = time - subTime;
     cout << b;
     cout<<"Thoi gian sau khi tru di bot 1s: "<<--time<<endl;
-    cout<<"Thoi gian sau khi cong di bot 1s: "<<++time<<endl;
+    cout<<"Thoi gian sau khi cong 1s: "<<++time<<endl;
     return 0;
 }
