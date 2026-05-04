@@ -20,6 +20,8 @@ public:
     friend ostream &operator<<(ostream &os, cTime other);
     cTime operator+(int s);
     cTime operator-(int s);
+    cTime operator++();
+    cTime operator--();
 };
 istream &operator>>(istream &is, cTime &other)
 {
@@ -46,6 +48,17 @@ cTime cTime::operator-(int s)
 {
     return *this + (-s);
 }
+cTime cTime::operator++()
+{
+    *this = *this + 1;
+    return *this;
+}
+
+cTime cTime::operator--()
+{
+    *this = *this - 1;
+    return *this;
+}
 int main()
 {
     cTime time;
@@ -58,5 +71,7 @@ int main()
     cout<<"Nhap so giay muon tru: "; cin>>subTime;
     cTime b = time - subTime;
     cout << b;
+    cout<<"Thoi gian sau khi tru di bot 1s: "<<--time<<endl;
+    cout<<"Thoi gian sau khi cong di bot 1s: "<<++time<<endl;
     return 0;
 }
