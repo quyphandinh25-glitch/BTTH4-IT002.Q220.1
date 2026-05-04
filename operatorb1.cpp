@@ -26,7 +26,6 @@ public:
     friend istream &operator>>(istream &is, cSoPhuc &other);
 };
 
-// Định nghĩa chi tiết bên ngoài
 cSoPhuc cSoPhuc::operator+(const cSoPhuc &other)
 {
     cSoPhuc res;
